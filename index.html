@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Escolha: Usuário ou Empresa</title>
+  <!-- Myriad Pro não está no Google Fonts. Usamos "Source Sans 3" como alternativa bem próxima e deixamos
+       "Myriad Pro" no stack para quem tiver instalada localmente. -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f7f8;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #0f172a;
+      --primary-contrast: #ffffff;
+      --card-border: #e2e8f0;
+      --empresa: #ccf7d1; /* verde claro do cartão Empresa */
+      --empresa-strong: #16a34a; /* verde para foco/hover */
+      --radius: 1.25rem;
+      --shadow: 0 10px 25px rgba(2,6,23,.08);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: "Myriad Pro", "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: var(--text);
+      background: radial-gradient(80rem 80rem at 50% -20%, #e9f7ff 10%, transparent 60%), var(--bg);
+    }
+
+    .wrapper {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+	  margin-top:-40px;
+	  }
+
+    .grid {
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 2.5vw, 28px);
+    }
+
+    /* Cartões quadrados e responsivos */
+    .card {
+      position: relative;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      aspect-ratio: 1 / 1; /* mantém quadrado */
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card.empresa {
+      background: var(--empresa);
+      border-color: color-mix(in srgb, var(--empresa) 60%, var(--card-border));
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(2,6,23,.12);
+    }
+
+    .content {
+      display: grid;
+      gap: 14px;
+      width: min(80%, 380px);
+      text-align: center;
+      align-items: center;
+      justify-items: center;
+	  margin-bottom:-10px;
+    }
+
+    .title {
+      font-size: clamp(1.35rem, 1.2rem + 1.2vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      margin-bottom: 2px;
+    }
+
+    .hint {
+      font-size: clamp(.9rem, .8rem + .3vw, 1rem);
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+	  margin-left:-35px;
+	  
+      grid-auto-rows: min-content;
+    }
+
+    .btn {
+      --btn-bg: var(--primary);
+      --btn-fg: var(--primary-contrast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: calc(var(--radius) - .25rem);
+      border: 0;
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: clamp(1rem, .95rem + .4vw, 1.125rem);
+      letter-spacing: .2px;
+      box-shadow: 0 2px 0 rgba(2,6,23,.08);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--btn-bg) 45%, #ffffff);
+      outline-offset: 2px;
+    }
+
+    .btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(2,6,23,.12);
+    }
+
+    .btn.secondary {
+      --btn-bg: transparent;
+      --btn-fg: var(--primary);
+      border: 2px solid color-mix(in srgb, var(--primary) 12%, #0000);
+      box-shadow: none;
+      font-weight: 600;
+    }
+
+    /* Variações para Empresa */
+    .card.empresa .btn.primary {
+      --btn-bg: var(--empresa-strong);
+    }
+
+    .card.empresa .btn.secondary {
+      --btn-fg: var(--empresa-strong);
+      border-color: color-mix(in srgb, var(--empresa-strong) 30%, #0000);
+    }
+
+    /* Responsividade: empilha em telas pequenas */
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { aspect-ratio: auto; min-height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+	<div align="center" style="margin-top:50px;">
+	
+		<img src="images/logo.png" width="200">
+	
+	</div>
+
+  <main class="wrapper" aria-label="Escolha de perfil">
+    <section class="grid">
+      <!-- Cartão: Usuário -->
+      <div class="card usuario" role="region" aria-labelledby="title-usuario">
+        <div class="content">
+          <h2 id="title-usuario" class="title">Sou Usuário</h2>
+          <p class="hint">Acompanhe pedidos, ofertas e recursos do app.</p>
+          <div class="actions">
+            <a class="btn primary" href="cadastro-usuario.html" aria-label="Ir para app do usuário">Cadastrar</a>
+            <!--<a class="btn secondary" href="planousuario.html" aria-label="Cadastrar usuário">Cadastrar</a>-->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cartão: Empresa -->
+      <div class="card empresa" role="region" aria-labelledby="title-empresa">
+        <div class="content">
+          <h2 id="title-empresa" class="title">Sou Empresa</h2>
+          <p class="hint">Gerencie estabelecimentos, planos e relatórios.</p>
+          <div class="actions">
+            <a class="btn primary" href="cadastro-empresa.html" aria-label="Ir para app da empresa">Cadastrar</a>
+             <!-- <a class="btn secondary" href="planoempresa.html" aria-label="Cadastrar empresa">Cadastrar</a>-->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

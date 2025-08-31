@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moneflix Shorts</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .icons {
+      position: absolute;
+      right: 15px;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 3;
+    }
+    .icon {
+      width: 35px;
+      height: 35px;
+      filter: invert(1); /* branco */
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .icon:hover {
+      transform: scale(1.2);
+    }
+
+    /* --- Legenda estilo TikTok --- */
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      color: white;
+      z-index: 2;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 80%);
+    }
+    .caption h3 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .caption p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+	.saiba-mais {
+	  position: absolute;
+	  right: 15px;
+	  bottom: 20px;
+	  padding: 10px 18px;
+	  background-color: #fff;
+	  color: #000;
+	  font-weight: bold;
+	  border-radius: 25px;
+	  text-decoration: none;
+	  z-index: 4;
+	  font-size: 14px;
+	  transition: transform 0.2s;
+}
+.saiba-mais:hover {
+  transform: scale(1.1);
+}
+
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <video id="videoPlayer" autoplay muted playsinline></video>
+
+    <!-- Legenda dinâmica -->
+    <div class="caption">
+      <h3 id="caption-user">@Moneflix</h3>
+      <p id="caption-text">Legenda do vídeo aqui</p>
+    </div>
+
+    <!-- Ícones de interação -->
+    <div class="icons">
+      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="icon" alt="Curtir">
+      <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" class="icon" alt="Comentar">
+      <img src="https://cdn-icons-png.flaticon.com/512/46/46076.png" class="icon" alt="Compartilhar">
+    </div>
+  </div>
+
+	<!-- Botão Saiba Mais -->
+	<a href="#" id="saibaMais" target="_blank" class="saiba-mais">Saiba mais</a>
+
+
+  <script>
+  const playlist = [
+    "mp4/Automotivo1.mp4",
+    "mp4/Gráfica1.mp4",
+    "mp4/Laboratório1.mp4",
+    "mp4/Pilates1.mp4",
+    "mp4/Gráfica2.mp4",
+    "mp4/Laboratório2.mp4",
+    "mp4/Automotivo2.mp4"
+  ];
+
+  const captions = [
+    { user: "@SerraAutoAr", text: "10% OFF em Refrigeração Automotiva" },
+    { user: "@JNConviteria", text: "12% OFF em Convites de Casamento" },
+    { user: "@LabAnacli", text: "Exames com até 7% de desconto!" },
+    { user: "@ImprovePilates", text: "Aula experimental gratuita de Pilates" },
+    { user: "@JNConviteria", text: "12% OFF em Caixas Cartonadas" },
+    { user: "@LabAnacli", text: "Descontos de até 7% em exames!" },
+    { user: "@SerraAutoAr", text: "12% OFF em revisão completa!" }
+  ];
+
+  // Links para cada vídeo
+  const linksSaibaMais = [
+    "https://exemplo.com/automotivo1",
+    "https://exemplo.com/grafica1",
+    "https://exemplo.com/laboratorio1",
+    "https://exemplo.com/pilates1",
+    "https://exemplo.com/grafica2",
+    "https://exemplo.com/laboratorio2",
+    "https://exemplo.com/automotivo2"
+  ];
+
+  let currentIndex = 0;
+  const videoPlayer = document.getElementById("videoPlayer");
+  const captionUser = document.getElementById("caption-user");
+  const captionText = document.getElementById("caption-text");
+  const saibaMais = document.getElementById("saibaMais");
+
+  // Carrega vídeo inicial
+  videoPlayer.src = playlist[currentIndex];
+  captionUser.textContent = captions[currentIndex].user;
+  captionText.textContent = captions[currentIndex].text;
+  saibaMais.href = linksSaibaMais[currentIndex];
+
+  // Pausar/Reproduzir ao clicar
+  videoPlayer.addEventListener("click", () => {
+    if (videoPlayer.paused) videoPlayer.play();
+    else videoPlayer.pause();
+  });
+
+  // Atualiza legenda e link do botão
+  function updateCaption() {
+    captionUser.textContent = captions[currentIndex].user;
+    captionText.textContent = captions[currentIndex].text;
+    saibaMais.href = linksSaibaMais[currentIndex];
+  }
+
+  // Troca de vídeo com efeito slide
+  function changeVideo(next = true) {
+    if (next) currentIndex = (currentIndex + 1) % playlist.length;
+    else currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+
+    document.body.style.transition = "transform 0.5s ease";
+    document.body.style.transform = next ? "translateY(-100vh)" : "translateY(100vh)";
+
+    setTimeout(() => {
+      videoPlayer.src = playlist[currentIndex];
+      videoPlayer.play();
+      updateCaption();
+      document.body.style.transition = "none";
+      document.body.style.transform = "translateY(0)";
+    }, 500);
+  }
+
+  // Scroll touchscreen
+  let startY = 0;
+  document.addEventListener("touchstart", (e) => { startY = e.touches[0].clientY; });
+  document.addEventListener("touchend", (e) => {
+    let endY = e.changedTouches[0].clientY;
+    if (startY - endY > 50) changeVideo(true);
+    else if (endY - startY > 50) changeVideo(false);
+  });
+
+  // Scroll mouse
+  document.addEventListener("wheel", (e) => {
+    if (e.deltaY > 0) changeVideo(true);
+    else changeVideo(false);
+  });
+
+  // Avançar automaticamente quando o vídeo termina
+  videoPlayer.addEventListener("ended", () => {
+    changeVideo(true);
+  });
+</script>
+
+</body>
+</html>

@@ -37,6 +37,7 @@ video {
   position: absolute;
   right: 20px;
   bottom: 170px;
+  visibility:hidden;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -106,6 +107,7 @@ body { margin:0; padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset
 /* Barra fixa */
 .app-tabbar{
   position: fixed;
+  visibility:hidden;
   left: 0; right: 0; bottom: 0;
   height: var(--tabbar-height);
   padding-bottom: env(safe-area-inset-bottom, 0);
@@ -121,6 +123,7 @@ body { margin:0; padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset
 .app-tabbar .tablink{
   height: 100%;
   display: flex;
+  
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -245,8 +248,8 @@ body { margin:0; padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset
   ];
 
   const captions = [
-    { user: "@BeloSorriso", text: "até 7% OFF em Odontologia" },
-    { user: "@LKSGasAgua", text: "até 8% OFF em Gás e Água" },
+    { user: "@BeloSorriso", text: "até 20% OFF em Odontologia" },
+    { user: "@LKSGasAgua", text: "até 10% OFF em Gás e Água" },
 	{ user: "@SerraAutoAr", text: "10% OFF em Refrigeração Automotiva" },
     { user: "@JNConviteria", text: "12% OFF em Convites de Casamento" },
     { user: "@LabAnacli", text: "Exames com até 7% de desconto!" },

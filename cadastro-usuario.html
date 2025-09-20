@@ -337,7 +337,7 @@
         <!-- Section Title End -->
 
         <!-- Pricing switcher -->
-        <div class="tc wf xf jb og" style="display:none;">
+        <div class="tc wf xf jb og" style="display:normal;">
           <span class="ek kk wm">Mensal</span>
           <button class="i rg gm" x-cloak @click="billPlan == 'monthly' ? billPlan = 'annually' : billPlan = 'monthly'">
             <div class="fe id bl gh rg xk outline-none"></div>
@@ -350,47 +350,62 @@
         </div>
 
         <!-- Pricing Table -->
+		  
         
 		<!-- Pricing Table -->
         <div class="bb ze i va ki xn yq bc">
-          <div class="wc qf pn xo jg">
-            <template x-for="(plan, i) in plans" x-key="i">
-              <!-- Pricing Item -->
-              <div class="animate_top rj sg hh sm vk xm hi nj oj">
-                <h4 x-text="plan.name" class="wj kk wm fb"></h4>
+  <!-- Tabela de Preços -->
+  <div class="wc qf pn xo jg">
+    <!-- Plano Mensal -->
+    <div class="animate_top rj sg hh sm vk xm hi nj oj">
+      <h4 class="wj kk wm fb">Plano Mensal</h4>
 
-                <div class="tc wf xf kg cc">
-                  <h2
-                    :class="plan.name == 'Basic' ? 'text-green-500' : ''"
-                    x-text="`R$${billPlan == 'monthly' ? plan.price.monthly : plan.price.annually}`"
-                    class="fk _j kk wm"
-                  ></h2>
-                  <span x-text="billPlan == 'monthly' ? '/mensal' : '/por ano'" class="sc ak kk wm"></span>
-                </div>
+      <div class="tc wf xf kg cc">
+        <h2 class="fk _j kk wm">R$1,99</h2>
+        <span class="sc ak kk wm">/mensal</span>
+      </div>
 
-                <p class="ur dc"></p>
+      <p class="ur dc"></p>
 
-                <!-- Button -->
-                <a
-                  href="https://invoice.infinitepay.io/plans/moneflix/23MyqO9oAt"
-                  class="ek rg lk ml il gi ri"
-                  :class="plan.name == 'Growth Plan' ? 'gh sl' : 'mh tl'"
-                >
-                  Contrate agora
-                </a>
+      <!-- Button -->
+      <a href="https://invoice.infinitepay.io/plans/moneflix/23MyqO9oAt" class="ek rg lk ml il gi ri mh tl">
+        Contrate agora
+      </a>
 
-                <!-- Features -->
-                <ul class="tc sf bg ob fb">
-                  <template x-for="(feature, i) in plan.features" x-key="i">
-                    <li x-text="feature"></li>
-                  </template>
-                </ul>
+      <!-- Features -->
+      <ul class="tc sf bg ob fb">
+        <li>1 usuário</li>
+        <li>Suporte básico</li>
+        <li>Acesso ao app</li>
+      </ul>
+    </div>
 
-                
-              </div>
-            </template>
-          </div>
-        </div>
+    <!-- Plano Anual -->
+    <div class="animate_top rj sg hh sm vk xm hi nj oj">
+      <h4 class="wj kk wm fb">Plano Anual</h4>
+
+      <div class="tc wf xf kg cc">
+        <h2 class="fk _j kk wm">R$24,00</h2>
+        <span class="sc ak kk wm">/ano</span>
+      </div>
+
+      <p class="ur dc"></p>
+
+      <!-- Button -->
+      <a href="https://invoice.infinitepay.io/plans/moneflix/23MyqO9oAt" class="ek rg lk ml il gi ri mh tl">
+        Contrate agora
+      </a>
+
+      <!-- Features -->
+      <ul class="tc sf bg ob fb">
+        <li>1 usuário</li>
+        <li>Suporte premium</li>
+        <li>Acesso ao app</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 		
 		
 		
